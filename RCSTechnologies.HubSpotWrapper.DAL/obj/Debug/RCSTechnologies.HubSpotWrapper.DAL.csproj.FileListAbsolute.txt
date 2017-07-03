@@ -1,0 +1,7 @@
+c:\users\max89701\documents\visual studio 2017\Projects\RCSTechnologies.HubSpotWrapper\RCSTechnologies.HubSpotWrapper.DAL\bin\Debug\RCSTechnologies.HubSpotWrapper.DAL.dll
+c:\users\max89701\documents\visual studio 2017\Projects\RCSTechnologies.HubSpotWrapper\RCSTechnologies.HubSpotWrapper.DAL\bin\Debug\RCSTechnologies.HubSpotWrapper.DAL.pdb
+c:\users\max89701\documents\visual studio 2017\Projects\RCSTechnologies.HubSpotWrapper\RCSTechnologies.HubSpotWrapper.DAL\bin\Debug\Newtonsoft.Json.dll
+c:\users\max89701\documents\visual studio 2017\Projects\RCSTechnologies.HubSpotWrapper\RCSTechnologies.HubSpotWrapper.DAL\bin\Debug\Newtonsoft.Json.xml
+c:\users\max89701\documents\visual studio 2017\Projects\RCSTechnologies.HubSpotWrapper\RCSTechnologies.HubSpotWrapper.DAL\obj\Debug\RCSTechnologies.HubSpotWrapper.DAL.csprojResolveAssemblyReference.cache
+c:\users\max89701\documents\visual studio 2017\Projects\RCSTechnologies.HubSpotWrapper\RCSTechnologies.HubSpotWrapper.DAL\obj\Debug\RCSTechnologies.HubSpotWrapper.DAL.dll
+c:\users\max89701\documents\visual studio 2017\Projects\RCSTechnologies.HubSpotWrapper\RCSTechnologies.HubSpotWrapper.DAL\obj\Debug\RCSTechnologies.HubSpotWrapper.DAL.pdb

@@ -1,0 +1,117 @@
+﻿@model RCSTechnologies.HubSpotWrapper.WebUI.Models.IndexModel
+@{
+    ViewBag.Title = "Home Page";
+}
+@section Scripts{
+    <script>
+        //$.ajax({
+        //    type: "POST",
+        //    url: 'https://api.hubapi.com/integrations/v1/51826/timeline/event-types?hapikey=87645982-fffc-4483-bcd7-fc4bc372b185&userId=4462474',
+        //    data: {
+        //        name: "Example Webinar Registration",
+        //        applicationId: 51826
+        //    }
+        //});
+
+        $.ajax({
+            type: "POST",
+            url: 'https://app.hubspot.com/oauth/authorize?client_id=e7d5afcf-fc67-41b8-8938-573f4a9cbfea&scope=contacts&redirect_uri=https://www.hubspot.com/',
+            //data: {
+            //    client_id: "e7d5afcf-fc67-41b8-8938-573f4a9cbfea",
+            //    scope: "contacts",
+            //    redirect_uri: "https://www.hubspot.com/"
+            //},
+            success: function (data) {
+                $.ajax({
+                    type: "POST",
+                    url: 'https://api.hubapi.com/oauth/v1/token',
+                    dataType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: {
+                        grant_type: "authorization_code",
+                        client_id: "e7d5afcf-fc67-41b8-8938-573f4a9cbfea",
+                        client_secret: "c7b2cb7c-6438-4094-be24-1275a6d57911",
+                        redirect_uri: "https://www.hubspot.com/",
+                        code: data
+                    },
+                    success: function (data) {
+                    }
+                });
+            }
+        });
+
+        function deleteContact() {
+            $.ajax({
+                type: "Delete",
+                url: '/Home/DeleteContact',
+                data: {
+                    id: $("#contactsTable tbody tr.active").attr('id')
+                },
+                success: function () {
+                    location.reload();
+                }
+            });
+        }
+
+        function searchContacts() {
+            $.ajax({
+                type: "GET",
+                url: '/Home/SearchContact',
+                data: {
+                    search: $("#searchInput").val()
+                },
+                success: function (data) {
+                    if (data.length > 0) $("#contactsTable tbody tr:not(:first)").remove();
+                    $.each(data, function () {
+                        var contact = $(this)[0];
+                        var markup = "<tr onclick='$(this).addClass('active');'><td>" + contact.vid
+                            + "</td><td>" + contact.firstName
+                            + "</td><td>" + contact.lastName
+                            + "</td><td>" + contact["canonical-vid"]
+                            + "</td><td>" + contact["portal-id"]
+                            + "</td><td><a href='" + contact["profile-url"]
+                            + "'>Link</a></td></tr>";
+                        $("#contactsTable tbody").append(markup);
+                    });
+                }
+            });
+        }
+
+        $("#contactsTable tbody tr:not(:first)").click(function () {
+            $(this).addClass("active");
+        });
+    </script>
+}
+
+<div class="container">
+    <div style="display:inline-flex;">
+        @Html.TextBox("searchInput", null, new { @class = "form-control" })
+        <input id="btnSubmit" class="btn btn-default" onclick="searchContacts();" type="button" value="search" />
+        <input id="btnDelete" class="btn btn-danger" onclick="deleteContact();" type="button" value="Delete" style="
+    right: 5%;
+    position: absolute;" />
+    </div>
+
+    <div class="row">
+        <table id="contactsTable" class="table table-hover col-md-8">
+            <tr>
+                <th>Id</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>CanonicalId</th>
+                <th>PortalId</th>
+                <th>ProfileUrl</th>
+            </tr>
+            @foreach (var contact in Model.Contacts)
+            {
+                <tr id="@contact.Id">
+                    <td>@contact.Id</td>
+                    <td>@contact.FirstName</td>
+                    <td>@contact.LastName</td>
+                    <td>@contact.CanonicalId</td>
+                    <td>@contact.PortalId</td>
+                    <td><a href='@contact.ProfileUrl'>Link</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
